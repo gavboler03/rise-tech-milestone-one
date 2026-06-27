@@ -18,26 +18,52 @@ const users = [
     password: testLocalPassword,
     role: "Local Admin",
   },
+  {
+    username: testStateUsername,
+    password: testStatePassword,
+    role: "State Admin",
+  },
+  {
+    username: testNationalUsername,
+    password: testNationalPassword,
+    role: "National Admin",
+  },
 ];
 
-for (const user of users) {
+users.map((user) => {
   test(`login works for ${user.role}`, async ({ page }) => {
     await page.goto("https://member.fop.net/signin/");
 
     await expect(page).toHaveTitle("");
 
-    await page.locator("#username").fill(testLocalUsername);
-    await page.locator("#password").fill(testLocalPassword);
+    await page
+      .locator("#username")
+      .fill(
+        user.role === "Local Admin"
+          ? testLocalUsername
+          : user.role === "State Admin"
+            ? testStateUsername
+            : testNationalUsername,
+      );
+    await page
+      .locator("#password")
+      .fill(
+        user.role === "Local Admin"
+          ? testLocalPassword
+          : user.role === "State Admin"
+            ? testStatePassword
+            : testNationalPassword,
+      );
 
     await page.waitForTimeout(500);
 
-    const submit = page.getByRole("button", { name: /sign in|log in/i });
+    const button = page.getByRole("button", { name: /sign in|log in/i });
 
-    await expect(submit).toBeVisible();
-    await expect(submit).toBeEnabled();
+    await expect(button).toBeVisible();
+    await expect(button).toBeEnabled();
 
-    await Promise.all([page.waitForURL(/dashboard/), submit.click()]);
+    await Promise.all([page.waitForURL(/dashboard/), button.click()]);
 
     await expect(page.getByText(user.role)).toBeVisible();
   });
-}
+});
