@@ -67,3 +67,9 @@ users.map((user) => {
     await expect(page.getByText(user.role)).toBeVisible();
   });
 });
+
+users.map((user) => {
+  test(`${user.role} has the correct access to the Reports page and Officers button`, async ({
+    page,
+  }) => {});
+});
