@@ -31,7 +31,9 @@ const users = [
 ];
 
 users.map((user) => {
-  test(`login works for ${user.role}`, async ({ page }) => {
+  test(`login works for ${user.role} and has correct access to Reports tab`, async ({
+    page,
+  }) => {
     await page.goto("https://member.fop.net/signin/");
 
     await expect(page).toHaveTitle("");
@@ -57,19 +59,18 @@ users.map((user) => {
 
     await page.waitForTimeout(500);
 
-    const button = page.getByRole("button", { name: /sign in|log in/i });
+    const login = page.getByRole("button", { name: /sign in|log in/i });
 
-    await expect(button).toBeVisible();
-    await expect(button).toBeEnabled();
+    await expect(login).toBeVisible();
+    await expect(login).toBeEnabled();
 
-    await Promise.all([page.waitForURL(/dashboard/), button.click()]);
+    await Promise.all([page.waitForURL(/dashboard/), login.click()]);
 
     await expect(page.getByText(user.role)).toBeVisible();
-  });
-});
 
-users.map((user) => {
-  test(`${user.role} has the correct access to the Reports page and Officers button`, async ({
-    page,
-  }) => {});
+    const reports = page.getByRole("button", { name: "Reports" });
+    user.role === "Local Admin"
+      ? await expect(reports).not.toBeVisible
+      : await expect(reports).toBeVisible();
+  });
 });
