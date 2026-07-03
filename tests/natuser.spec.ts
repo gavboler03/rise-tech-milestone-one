@@ -19,8 +19,6 @@ const user = {
 test(`National user can log in and does not see Approval Queue dashboard widget or tab`, async ({
   page,
 }) => {
-  // Login as National User
-
   await page.goto("https://member.fop.net/signin/");
 
   await expect(page).toHaveTitle("");
@@ -38,8 +36,6 @@ test(`National user can log in and does not see Approval Queue dashboard widget 
   await Promise.all([page.waitForURL(/dashboard/), button.click()]);
 
   await expect(page.getByText(user.role)).toBeVisible();
-
-  // Make sure Approval Queue page is not visible
 
   await expect(page.getByText("Approval Queue")).not.toBeVisible();
 });
