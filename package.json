@@ -9,7 +9,9 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.61.1",
-    "@types/node": "^26.0.0"
+    "@types/aws-lambda": "^8.10.162",
+    "@types/node": "^26.0.0",
+    "esbuild": "^0.28.2"
   },
   "dependencies": {
     "dotenv": "^17.4.2"
