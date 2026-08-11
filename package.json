@@ -11,9 +11,11 @@
     "@playwright/test": "^1.61.1",
     "@types/aws-lambda": "^8.10.162",
     "@types/node": "^26.0.0",
-    "esbuild": "^0.28.2"
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
   },
   "dependencies": {
+    "aws-lambda-ric": "^4.0.2",
     "dotenv": "^17.4.2"
   }
 }
