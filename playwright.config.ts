@@ -9,6 +9,8 @@ export default defineConfig({
 
   workers: 1,
 
+  outputDir: "/tmp/playwright-test-results",
+
   reporter: [
     ["line"],
     [
@@ -22,11 +24,8 @@ export default defineConfig({
 
   use: {
     headless: true,
-
     screenshot: "only-on-failure",
-
     video: "retain-on-failure",
-
     trace: "retain-on-failure",
   },
 });

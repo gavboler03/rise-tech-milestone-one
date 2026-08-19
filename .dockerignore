@@ -1,8 +1,9 @@
-.env
 node_modules
-.github
 .git
+.gitignore
+.env
 playwright-report
 test-results
-.DS_Store
-*.log
+tmp
+Dockerfile
+.dockerignore

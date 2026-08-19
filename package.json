@@ -1,20 +1,26 @@
 {
   "name": "rise-tech-milestone-one",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {},
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "build": "tsc",
+    "lambda": "node dist/src/handler.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "1.62.1",
     "@types/aws-lambda": "^8.10.162",
     "@types/node": "^26.0.0",
     "esbuild": "^0.28.2",
     "typescript": "^7.0.2"
   },
   "dependencies": {
+    "@playwright/test": "1.62.1",
     "aws-lambda-ric": "^4.0.2",
     "dotenv": "^17.4.2"
   }
