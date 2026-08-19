@@ -22,6 +22,8 @@
   "dependencies": {
     "@playwright/test": "1.62.1",
     "aws-lambda-ric": "^4.0.2",
+    "@sparticuz/chromium": "latest",
+    "playwright-core": "latest",
     "dotenv": "^17.4.2"
   }
 }
