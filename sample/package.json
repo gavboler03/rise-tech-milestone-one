@@ -1,0 +1,9 @@
+{
+  "name": "playwright-lambda",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@sparticuz/chromium": "latest",
+    "playwright-core": "latest"
+  }
+}

@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+  ImageUri:
+    Type: String
+
+  FunctionName:
+    Type: String
+    Default: playwright-lambda
+
+Resources:
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub '${FunctionName}-role'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  PlaywrightLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Ref FunctionName
+      PackageType: Image
+
+      Code:
+        ImageUri: !Ref ImageUri
+
+      Role: !GetAtt LambdaExecutionRole.Arn
+
+      Architectures:
+        - x86_64
+
+      MemorySize: 2048
+      Timeout: 60
+
+      EphemeralStorage:
+        Size: 1024
+
+Outputs:
+  FunctionName:
+    Value: !Ref PlaywrightLambda
+
+  ImageUri:
+    Value: !Ref ImageUri
