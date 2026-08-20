@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import dotenv from "dotenv";
+import { getTestSecrets } from "../helpers/secrets";
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ const nationalAdminLastName = String(process.env.NATIONAL_ADMIN_LASTNAME);
 const users = [
   {
     username: localAdminUsername,
-    password: localAdminLastName,
+    password: localAdminPassword,
     firstname: localAdminFirstName,
     lastname: localAdminLastName,
     role: "Local Admin",
