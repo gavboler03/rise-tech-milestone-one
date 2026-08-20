@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
 import dotenv from "dotenv";
-import { getTestSecrets } from "../helpers/secrets";
 
 dotenv.config();
 
@@ -49,24 +48,8 @@ users.map((user) => {
 
     await expect(page).toHaveTitle("");
 
-    await page
-      .locator("#username")
-      .fill(
-        user.role === "Local Admin"
-          ? localAdminUsername
-          : user.role === "State Admin"
-            ? stateAdminUsername
-            : nationalAdminUsername,
-      );
-    await page
-      .locator("#password")
-      .fill(
-        user.role === "Local Admin"
-          ? localAdminPassword
-          : user.role === "State Admin"
-            ? stateAdminPassword
-            : nationalAdminPassword,
-      );
+    await page.locator("#username").fill(user.username);
+    await page.locator("#password").fill(user.password);
 
     await page.waitForTimeout(500);
 
