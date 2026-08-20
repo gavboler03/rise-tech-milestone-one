@@ -3,41 +3,41 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const testLocalUsername = String(process.env.TEST_LOCAL_USERNAME);
-const testLocalPassword = String(process.env.TEST_LOCAL_PASSWORD);
-const testLocalFirstName = String(process.env.TEST_LOCAL_FIRSTNAME);
-const testLocalLastName = String(process.env.TEST_LOCAL_LASTNAME);
+const localAdminUsername = String(process.env.LOCAL_ADMIN_USERNAME);
+const localAdminPassword = String(process.env.LOCAL_ADMIN_PASSWORD);
+const localAdminFirstName = String(process.env.LOCAL_ADMIN_FIRSTNAME);
+const localAdminLastName = String(process.env.LOCAL_ADMIN_LASTNAME);
 
-const testStateUsername = String(process.env.TEST_STATE_USERNAME);
-const testStatePassword = String(process.env.TEST_STATE_PASSWORD);
-const testStateFirstName = String(process.env.TEST_STATE_FIRSTNAME);
-const testStateLastName = String(process.env.TEST_STATE_LASTNAME);
+const stateAdminUsername = String(process.env.STATE_ADMIN_USERNAME);
+const stateAdminPassword = String(process.env.STATE_ADMIN_PASSWORD);
+const stateAdminFirstName = String(process.env.STATE_ADMIN_FIRSTNAME);
+const stateAdminLastName = String(process.env.STATE_ADMIN_LASTNAME);
 
-const testNationalUsername = String(process.env.TEST_NATIONAL_USERNAME);
-const testNationalPassword = String(process.env.TEST_NATIONAL_PASSWORD);
-const testNationalFirstName = String(process.env.TEST_NATIONAL_FIRSTNAME);
-const testNationalLastName = String(process.env.TEST_NATIONAL_LASTNAME);
+const nationalAdminUsername = String(process.env.NATIONAL_ADMIN_USERNAME);
+const nationalAdminPassword = String(process.env.NATIONAL_ADMIN_PASSWORD);
+const nationalAdminFirstName = String(process.env.NATIONAL_ADMIN_FIRSTNAME);
+const nationalAdminLastName = String(process.env.NATIONAL_ADMIN_LASTNAME);
 
 const users = [
   {
-    username: testLocalUsername,
-    password: testLocalPassword,
-    firstname: testLocalFirstName,
-    lastname: testLocalLastName,
+    username: localAdminUsername,
+    password: localAdminLastName,
+    firstname: localAdminFirstName,
+    lastname: localAdminLastName,
     role: "Local Admin",
   },
   {
-    username: testStateUsername,
-    password: testStatePassword,
-    firstname: testStateFirstName,
-    lastname: testStateLastName,
+    username: stateAdminUsername,
+    password: stateAdminPassword,
+    firstname: stateAdminFirstName,
+    lastname: stateAdminLastName,
     role: "State Admin",
   },
   {
-    username: testNationalUsername,
-    password: testNationalPassword,
-    firstname: testNationalFirstName,
-    lastname: testNationalLastName,
+    username: nationalAdminUsername,
+    password: nationalAdminPassword,
+    firstname: nationalAdminFirstName,
+    lastname: nationalAdminLastName,
     role: "National Admin",
   },
 ];
@@ -52,19 +52,19 @@ users.map((user) => {
       .locator("#username")
       .fill(
         user.role === "Local Admin"
-          ? testLocalUsername
+          ? localAdminUsername
           : user.role === "State Admin"
-            ? testStateUsername
-            : testNationalUsername,
+            ? stateAdminUsername
+            : nationalAdminUsername,
       );
     await page
       .locator("#password")
       .fill(
         user.role === "Local Admin"
-          ? testLocalPassword
+          ? localAdminPassword
           : user.role === "State Admin"
-            ? testStatePassword
-            : testNationalPassword,
+            ? stateAdminPassword
+            : nationalAdminPassword,
       );
 
     await page.waitForTimeout(500);

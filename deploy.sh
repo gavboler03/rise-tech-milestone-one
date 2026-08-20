@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-REGION="${1:-us-west-2}"
+REGION="${1:-us-east-2}"
 REPOSITORY="${2:-playwright-lambda}"
 STACK_NAME="${3:-playwright-lambda}"
 FUNCTION_NAME="${4:-playwright-lambda}"
