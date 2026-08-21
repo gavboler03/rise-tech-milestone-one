@@ -3,23 +3,19 @@ import {
   SecretsManagerClient,
 } from "@aws-sdk/client-secrets-manager";
 
-import dotenv from "dotenv";
-
-dotenv.config();
-
 const client = new SecretsManagerClient({
   region: process.env.AWS_REGION || "us-east-2",
 });
 
-export async function getTestSecrets() {
+export async function getSecret(secretName: string) {
   const response = await client.send(
     new GetSecretValueCommand({
-      SecretId: process.env.PLAYWRIGHT_SECRET_NAME,
+      SecretId: secretName,
     }),
   );
 
   if (!response.SecretString) {
-    throw new Error("AWS Secrets Manager secret is empty");
+    throw new Error(`Secret ${secretName} does not contain SecretString`);
   }
 
   return JSON.parse(response.SecretString);

@@ -1,48 +1,38 @@
 import { test, expect } from "@playwright/test";
 import dotenv from "dotenv";
+import { getSecret } from "../helpers/secrets.js";
 
 dotenv.config();
 
-const localAdminUsername = String(process.env.LOCAL_ADMIN_USERNAME);
-const localAdminPassword = String(process.env.LOCAL_ADMIN_PASSWORD);
-const localAdminFirstName = String(process.env.LOCAL_ADMIN_FIRSTNAME);
-const localAdminLastName = String(process.env.LOCAL_ADMIN_LASTNAME);
-
-const stateAdminUsername = String(process.env.STATE_ADMIN_USERNAME);
-const stateAdminPassword = String(process.env.STATE_ADMIN_PASSWORD);
-const stateAdminFirstName = String(process.env.STATE_ADMIN_FIRSTNAME);
-const stateAdminLastName = String(process.env.STATE_ADMIN_LASTNAME);
-
-const nationalAdminUsername = String(process.env.NATIONAL_ADMIN_USERNAME);
-const nationalAdminPassword = String(process.env.NATIONAL_ADMIN_PASSWORD);
-const nationalAdminFirstName = String(process.env.NATIONAL_ADMIN_FIRSTNAME);
-const nationalAdminLastName = String(process.env.NATIONAL_ADMIN_LASTNAME);
+const adminCredentials = await getSecret(
+  process.env.ADMIN_SECRET_NAME || "secrets/playwright/ortu3_admin",
+);
 
 const users = [
   {
-    username: localAdminUsername,
-    password: localAdminPassword,
-    firstname: localAdminFirstName,
-    lastname: localAdminLastName,
+    username: adminCredentials.LOCAL_ADMIN_USERNAME,
+    password: adminCredentials.LOCAL_ADMIN_PASSWORD,
+    firstname: adminCredentials.LOCAL_ADMIN_FIRSTNAME,
+    lastname: adminCredentials.LOCAL_ADMIN_LASTNAME,
     role: "Local Admin",
   },
   {
-    username: stateAdminUsername,
-    password: stateAdminPassword,
-    firstname: stateAdminFirstName,
-    lastname: stateAdminLastName,
+    username: adminCredentials.STATE_ADMIN_USERNAME,
+    password: adminCredentials.STATE_ADMIN_PASSWORD,
+    firstname: adminCredentials.STATE_ADMIN_FIRSTNAME,
+    lastname: adminCredentials.STATE_ADMIN_LASTNAME,
     role: "State Admin",
   },
   {
-    username: nationalAdminUsername,
-    password: nationalAdminPassword,
-    firstname: nationalAdminFirstName,
-    lastname: nationalAdminLastName,
+    username: adminCredentials.NATIONAL_ADMIN_USERNAME,
+    password: adminCredentials.NATIONAL_ADMIN_PASSWORD,
+    firstname: adminCredentials.NATIONAL_ADMIN_FIRSTNAME,
+    lastname: adminCredentials.NATIONAL_ADMIN_LASTNAME,
     role: "National Admin",
   },
 ];
 
-users.map((user) => {
+users.forEach((user) => {
   test(`Testing for ${user.role}`, async ({ page }) => {
     await page.goto("https://member.fop.net/signin/");
 
