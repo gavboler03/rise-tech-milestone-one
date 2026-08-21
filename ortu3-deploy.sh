@@ -2,9 +2,9 @@
 set -euo pipefail
 
 REGION="${1:-us-east-2}"
-REPOSITORY="${2:-playwright-lambda}"
-STACK_NAME="${3:-playwright-lambda}"
-FUNCTION_NAME="${4:-playwright-lambda}"
+REPOSITORY="${2:-ortu3-playwright-lambda}"
+STACK_NAME="${3:-ortu3-playwright-lambda}"
+FUNCTION_NAME="${4:-ortu3-playwright-lambda}"
 
 TAG=$(date +%Y%m%d%H%M%S)
 
@@ -77,11 +77,12 @@ docker push "${IMAGE_URI}"
 echo "Deploying CloudFormation..."
 
 aws cloudformation deploy \
-    --template-file playwright-lambda.yaml \
+    --template-file ortu3-playwright-lambda.yaml \
     --stack-name "${STACK_NAME}" \
     --parameter-overrides \
         ImageUri="${IMAGE_URI}" \
         FunctionName="${FUNCTION_NAME}" \
+        SecretArn="arn:aws:secretsmanager:us-east-2:695313591406:secret:secrets/playwright/ortu3_admin-jb7KQL" \
     --capabilities CAPABILITY_NAMED_IAM \
     --region "${REGION}"
 

@@ -10,10 +10,5 @@
     "rootDir": ".",
     "types": ["node", "aws-lambda"]
   },
-  "include": [
-    "src/**/*.ts",
-    "tests/**/*.ts",
-    "playwright.config.ts",
-    "helpers/handler.ts"
-  ]
+  "include": ["src/**/*.ts", "tests/**/*.ts", "playwright.config.ts"]
 }
